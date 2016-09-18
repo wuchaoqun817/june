@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meyacom.dao.MenuMapper">
+	<resultMap id="BaseResultMap" type="com.meyacom.domain.Menu">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="menuName" jdbcType="VARCHAR" property="menuName" />
+		<result column="menuNameDesc" jdbcType="VARCHAR" property="menuNameDesc" />
+		<result column="menuParentId" jdbcType="INTEGER" property="menuParentId" />
+		<result column="menuIcon" jdbcType="VARCHAR" property="menuIcon" />
+		<result column="menuUrl" jdbcType="VARCHAR" property="menuUrl" />
+	</resultMap>
+
+
+	<select id="queryMenuByParentId" resultMap="BaseResultMap">
+		SELECT
+		M.*
+		FROM
+		T_USER U,
+		T_USER_ROLE UR,
+		T_ROLE R,
+		T_MENU M,
+		T_ROLE_MENU RM
+		WHERE
+		U.USERID = UR.USERID
+		AND UR.ROLEID = R.ROLEID AND U.`STATUS`=1 AND
+		R.`STATUS`=1 AND
+		R.ROLEID=RM.ROLEID AND RM.MENUID=M.ID 
+		AND 
+			M.MENUPARENTID=#{menuParentId,jdbcType=INTEGER} 
+		AND 
+			U.USERNAME=#{userName,jdbcType=VARCHAR}
+	</select>
+
+
+
+
+
+
+</mapper>

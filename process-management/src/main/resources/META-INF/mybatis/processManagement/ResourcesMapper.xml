@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meyacom.dao.ResourcesMapper">
+	<resultMap id="BaseResultMap" type="com.meyacom.domain.Resources">
+		<id column="resourcesId" jdbcType="INTEGER" property="resourcesId" />
+		<result column="resourcesName" jdbcType="VARCHAR" property="resourcesName" />
+		<result column="resourcesType" jdbcType="VARCHAR" property="resourcesType" />
+		<result column="resourcesUrl" jdbcType="VARCHAR" property="resourcesUrl" />
+		<result column="parentId" jdbcType="INTEGER" property="parentId" />
+		<result column="resourcesStatus" jdbcType="INTEGER" property="resourcesStatus" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		RESOURCESID, RESOURCESNAME, RESOURCESTYPE,
+		RESOURCESPERMISSION, RESOURCESURL,
+		PARENTID,
+		PARENTIDS, RESOURCESSTATUS
+	</sql>
+
+	<select id="selectResourceByUsername" resultMap="BaseResultMap">
+		SELECT
+		RE.*
+		FROM
+		T_MENU M,
+		T_USER U,
+		T_ROLE R,
+		T_USER_ROLE UR,
+		T_ROLE_MENU RM,
+		T_MENU_RESOURCES MR,
+		T_ROLE_RESOURCES RR,
+		T_RESOURCES RE
+		WHERE
+		(
+			( R.ROLEID = RM.ROLEID
+				AND RM.MENUID = M.ID
+				AND M.ID = MR.MENUID
+				AND MR.RESOURCESID = RE.RESOURCESID
+			)
+		  OR
+			(
+				R.ROLEID=RR.ROLEID
+				AND RR.RESOURCESID=RE.RESOURCESID
+			)
+		)
+		AND U.USERID = UR.USERID
+		AND UR.ROLEID = R.ROLEID
+		AND U.`STATUS`=1
+		AND R.`STATUS`=1
+		AND RE.RESOURCESSTATUS=1
+		AND U.USERNAME=#{currentUserName,jdbcType=VARCHAR}
+
+		GROUP BY 
+		RE.RESOURCESID
+	</select>
+
+
+</mapper>

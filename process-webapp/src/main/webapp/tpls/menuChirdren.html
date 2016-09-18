@@ -1,0 +1,20 @@
+
+
+
+<ul class="sidebar-menu" ng-repeat="row in data" ng-class="{ms_parent_item:(row.children && row.children.length>0),ms_child_item:(!row.children || row.children.length<=0)}">
+<li class="treeview" ng-click="toogle($index)" >
+<a href="{{row[url]}}" >
+<i class="{{row[icon]}}"  ></i>
+<span >{{row[showname]}}</span>
+<span style="position: absolute; right: 10px; top: 50%; margin-top: -7px;" class="glyphicon" ng-class="{'glyphicon-chevron-right':(row.children && row.children.length>0 && !row.isopen),'glyphicon-chevron-down':(row.children && row.children.length>0 &&  row.isopen)}" aria-hidden="true"></span>
+</a>
+</li>
+<ul  ng-show="row.isopen" style="list-style-type:none" >
+<li class="treeview">
+<a href="{{row[url]}}" >
+
+<tree-menu data="row.children" id="id" pid="pid" icon="{{icon}}" url="{{url}}" showname="{{showname}}"  pvalue="{{row[id]}}"></tree-menu>
+<a>
+</li>
+</ul>
+</ul>

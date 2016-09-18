@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+                        http://www.springframework.org/schema/mvc    
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+						http://www.springframework.org/schema/aop 
+                     	http://www.springframework.org/schema/aop/spring-aop.xsd
+                     	http://www.springframework.org/schema/task 
+                     	http://www.springframework.org/schema/task/spring-task.xsd">
+	<!-- 开启注解 -->
+	<context:annotation-config />
+	<!-- 自动扫描 -->
+	<!-- <context:component-scan base-package="com.meyacom" /> -->
+	<!-- 注解扫描的目录:使用 annotation 排除@Controller注解 -->
+	<context:component-scan base-package="com.meyacom">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- 引入配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!-- <property name="location" value="jdbc.properties" /> -->
+		<property name="locations" >	
+		<list>
+			<value>file:${user.dir}/src/main/webapp/META-INF/spring/jdbc.properties
+			</value>
+			<!-- <value>file:${user.dir}/conf/task.properties</value> -->
+		</list>
+	</property>
+	</bean>
+
+
+	<!-- 引入定时任务 -->
+	<import resource="spring-task.xml" />
+	<!-- 引入shiro -->
+	<import resource="spring-shiro.xml" />
+
+	<!--dbcp destroy-method="close"的作用是当数据库连接不使用的时候,就把该连接重新放到数据池中,方便下次使用调用 -->
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close" > <property name="driverClassName" value="${database.driverClass}" 
+		/> <property name="url" value="${database.jdbcUrl}" /> <property name="username" 
+		value="${database.user}" /> <property name="password" value="${database.password}" 
+		/> 初始化连接大小 <property name="initialSize" value="${initialSize}"></property> 
+		连接池最大数量 <property name="maxActive" value="${maxActive}"></property> 连接池最大空闲 
+		<property name="maxIdle" value="${maxIdle}"></property> 连接池最小空闲 <property 
+		name="minIdle" value="${minIdle}"></property> 获取连接最大等待时间 <property name="maxWait" 
+		value="${maxWait}"></property> </bean> -->
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<!-- 数据库基本信息配置 -->
+		<property name="driverClassName" value="${database.driverClass}" />
+		<property name="url" value="${database.jdbcUrl}" />
+		<property name="username" value="${database.user}" />
+		<property name="password" value="${database.password}" />
+		<!-- 初始化连接数量 -->
+		<property name="initialSize" value="${druid.initialSize}" />
+		<!-- 最大并发连接数 -->
+		<property name="maxActive" value="${druid.maxActive}" />
+		<!-- 最大空闲连接数 -->
+		<property name="maxIdle" value="${druid.maxIdle}" />
+		<!-- 最小空闲连接数 -->
+		<property name="minIdle" value="${druid.minIdle}" />
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="${druid.maxWait}" />
+		<!-- 超过时间限制是否回收 -->
+		<property name="removeAbandoned" value="${druid.removeAbandoned}" />
+		<!-- 超过时间限制多长； -->
+		<property name="removeAbandonedTimeout" value="${druid.removeAbandonedTimeout}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+		<!-- 用来检测连接是否有效的sql，要求是一个查询语句 -->
+		<property name="validationQuery" value="${druid.validationQuery}" />
+		<!-- 申请连接的时候检测 -->
+		<property name="testWhileIdle" value="${druid.testWhileIdle}" />
+		<!-- 申请连接时执行validationQuery检测连接是否有效，配置为true会降低性能 -->
+		<property name="testOnBorrow" value="${druid.testOnBorrow}" />
+		<!-- 归还连接时执行validationQuery检测连接是否有效，配置为true会降低性能 -->
+		<property name="testOnReturn" value="${druid.testOnReturn}" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="${druid.poolPreparedStatements}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="${druid.maxPoolPreparedStatementPerConnectionSize}" />
+		<!--属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有： 监控统计用的filter:stat 日志用的filter:log4j 防御SQL注入的filter:wall -->
+		<property name="filters" value="${druid.filters}" />
+	</bean>
+
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描mapping.xml文件 -->
+		<!-- <property name="mapperLocations" value="classpath:com/meyacom/mapping/*.xml"></property> -->
+		<property name="mapperLocations" value="classpath*:META-INF/mybatis/**/*.xml"></property>
+
+		<!-- 引入pageHelper分页配置文件 -->
+		<property name="configLocation" value="/META-INF/spring/pageHelper.xml" />
+	</bean>
+
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.meyacom.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+
+	<!-- 配置druid监控spring jdbc -->
+	<bean id="druid-stat-interceptor"
+		class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+	</bean>
+	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
+		scope="prototype">
+		<property name="patterns">
+			<list>
+				<value>com.meyacom.service.*</value>
+			</list>
+		</property>
+	</bean>
+	<aop:config>
+		<aop:advisor advice-ref="druid-stat-interceptor"
+			pointcut-ref="druid-stat-pointcut" />
+	</aop:config>
+
+
+	<!-- 使用annotation注解方式配置事务 -->
+	<!-- proxy-target-class属性值决定是基于接口的还是基于类的代理被创建。如果proxy-target-class 属性值被设置为true，那么基于类的代理将起作用（这时需要cglib库）。如果proxy-target-class属值被设置为false或者这个属性被省略，那么标准的JDK 
+		基于接口的代理将起作用。 -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- AOP配置事物 -->
+	<!-- REQUIRED：支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。 SUPPORTS：支持当前事务，如果当前没有事务，就以非事务方式执行。 
+		MANDATORY：支持当前事务，如果当前没有事务，就抛出异常。 REQUIRES_NEW：新建事务，如果当前存在事务，把当前事务挂起。 NOT_SUPPORTED：以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。 
+		NEVER：以非事务方式执行，如果当前存在事务，则抛出异常。 NESTED：支持当前事务，如果当前事务存在，则执行一个嵌套事务，如果当前没有事务，就新建一个事务。 -->
+	<!-- <tx:advice id="transactionAdvice" transaction-manager="transactionManager"> -->
+	<!-- <tx:attributes> -->
+	<!-- <tx:method name="add*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/> -->
+	<!-- <tx:method name="append*" propagation="REQUIRED" read-only="false" 
+		rollback-for="java.lang.Exception" /> -->
+	<!-- <tx:method name="insert*" propagation="REQUIRED" read-only="false" 
+		rollback-for="java.lang.Exception"/> -->
+	<!-- <tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/> -->
+	<!-- <tx:method name="update*" propagation="REQUIRED" read-only="false" 
+		rollback-for="java.lang.Exception"/> -->
+	<!-- <tx:method name="modify*" propagation="REQUIRED" read-only="false" 
+		rollback-for="java.lang.Exception"/> -->
+	<!-- <tx:method name="edit*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/> -->
+	<!-- <tx:method name="delete*" propagation="REQUIRED" read-only="false" 
+		rollback-for="java.lang.Exception"/> -->
+	<!-- <tx:method name="remove*" propagation="REQUIRED" read-only="false" 
+		rollback-for="java.lang.Exception"/> -->
+	<!-- <tx:method name="repair" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/> -->
+	<!-- <tx:method name="delAndRepair" propagation="REQUIRED" read-only="false" 
+		rollback-for="java.lang.Exception"/> -->
+	<!-- <tx:method name="get*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/> -->
+	<!-- <tx:method name="datagrid*" propagation="REQUIRED" read-only="false" 
+		rollback-for="java.lang.Exception"/> -->
+
+	<!-- <tx:method name="query*" propagation="SUPPORTS" read-only="true" /> -->
+	<!-- <tx:method name="select*" propagation="SUPPORTS" read-only="true"/> -->
+	<!-- <tx:method name="find*" propagation="SUPPORTS" read-only="true" /> -->
+	<!-- <tx:method name="load*" propagation="SUPPORTS" read-only="true" /> -->
+	<!-- <tx:method name="search*" propagation="SUPPORTS" read-only="true"/> -->
+	<!-- </tx:attributes> -->
+	<!-- </tx:advice> -->
+	<!-- 配置AOP切面 -->
+	<!-- <aop:config> -->
+	<!-- <aop:pointcut id="transactionPointcut" -->
+	<!-- expression="execution(* com.meyacom..service.*.*(..))" /> -->
+	<!-- <aop:advisor pointcut-ref="transactionPointcut" -->
+	<!-- advice-ref="transactionAdvice" /> -->
+	<!-- </aop:config> -->
+</beans>

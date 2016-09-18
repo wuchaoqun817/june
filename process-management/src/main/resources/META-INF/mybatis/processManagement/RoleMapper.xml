@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meyacom.dao.RoleMapper">
+	<resultMap id="BaseResultMap" type="com.meyacom.domain.Role">
+		<id column="roleId" jdbcType="INTEGER" property="roleId" />
+		<result column="roleCode" jdbcType="INTEGER" property="roleCode" />
+		<result column="roleName" jdbcType="VARCHAR" property="roleName" />
+		<result column="roleDescription" jdbcType="VARCHAR" property="roleDescription" />
+		<result column="orgId" jdbcType="INTEGER" property="orgId" />
+		<result column="departmentId" jdbcType="INTEGER" property="departmentId" />
+		<result column="departmentName" jdbcType="VARCHAR" property="departmentName" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+	</resultMap>
+
+
+	<select id="findRoleIdsByUserId" resultType="java.lang.Integer">
+		select t.roleid from t_user_role t where t.userid=${userId,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectRoleByUsername" resultMap="BaseResultMap">
+		SELECT
+		R.*
+		FROM
+		T_USER U,
+		T_USER_ROLE UR,
+		T_ROLE R
+		WHERE
+		U.USERID = UR.USERID
+		AND UR.ROLEID = R.ROLEID AND U.`STATUS`=1 AND R.`STATUS`=1 AND
+		U.USERNAME=#{currentUserName,jdbcType=VARCHAR}
+	</select>
+
+	<sql id="Base_Column_List">
+		roleId, roleCode, roleName, roleDescription, orgId, departmentId,
+		departmentName,
+		status
+	</sql>
+
+
+
+
+
+
+</mapper>

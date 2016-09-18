@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+                        http://www.springframework.org/schema/mvc    
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+						http://www.springframework.org/schema/aop 
+                     	http://www.springframework.org/schema/aop/spring-aop.xsd
+                     	http://www.springframework.org/schema/task 
+                     	http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<!-- 自动扫描的包名 -->
+	<context:component-scan base-package="com.meyacom" />
+
+	<!-- 如果定时任务很多，可以配置executor线程池，这里executor的含义和java.util.concurrent.Executor是一样的，pool-size的大小官方推荐为5~10。scheduler的pool-size是ScheduledExecutorService线程池， -->
+<!-- 	<task:executor id="executor" pool-size="10" /> -->
+<!-- 	<task:scheduler id="scheduler" pool-size="10" /> -->
+
+	<!-- 定时任务前缀 -->
+	<task:scheduler id="scheduler" pool-size="${task.core_pool_size}" />
+	<!-- 定时器开关 -->
+	<task:annotation-driven executor="taskExecutor"
+		scheduler="scheduler" />
+
+	<!-- task 引入配置文件 -->
+	<!-- 配置在jdbc.properties文件中 -->
+
+	<!-- 如果此时线程池中的数量小于corePoolSize，即使线程池中的线程都处于空闲状态，也要创建新的线程来处理被添加的任务。 如果此时线程池中的数量等于 
+		corePoolSize，但是缓冲队列 workQueue未满，那么任务被放入缓冲队列。 如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量小于maximumPoolSize，建新的线程来处理被添加的任务。 
+		如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量等于maximumPoolSize，那么通过 
+		handler所指定的策略来处理此任务。也就是：处理任务的优先级为：核心线程corePoolSize、任务队列workQueue、最大线程 maximumPoolSize，如果三者都满了，使用handler处理被拒绝的任务。 
+		当线程池中的线程数量大于 corePoolSize时，如果某线程空闲时间超过keepAliveTime，线程将被终止。这样，线程池可以动态的调整池中的线程数。 -->
+	<!-- 线程池 -->
+	<bean id="taskExecutor"
+	class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+	<!-- 核心线程数 -->
+
+	<property name="corePoolSize" value="${task.core_pool_size}" />
+	<!-- 最大线程数 -->
+
+	<property name="maxPoolSize" value="${task.max_pool_size}" />
+	<!-- 队列最大长度 线程池所使用的缓冲队列 -->
+
+	<property name="queueCapacity" value="${task.queue_capacity}" />
+	<!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+
+	 <property name="keepAliveSeconds" value="${task.keep_alive_seconds}" 
+		/> 
+	</bean>
+	
+	
+
+	<!-- Spring对Quartz作了一个封装，同时，Spring自己也提供了一个任务定时器(spring-task)，现把它总结一下。 -->
+	<!-- 对于Quartz，我们使用的时候主要是注重两个方面，一个是定时任务的业务，另一个就是Cron表达式。定时任务跟具体的业务相关，这无需多说，这里只说明表达式含义及其写法。 -->
+	<!-- Cron表达式包括下面7个字段并区别顺序：秒0-59，分0-59，小时0-23，月内日期1-31，月1-12或者JAN-DEC，周内日期1-7或者SUN-SAT，年(可选字段)留空或者1970-2099并且通过特殊字符表示特殊意义，具体为下： -->
+	<!-- 斜线(/)字符表示增量值。例如，在秒字段中"5/15"代表从第5秒开始，每15秒一次。 -->
+	<!-- 问号(?)字符和字母L字符只有在月内日期和周内日期字段中可用。问号表示这个字段不包含具体值。所以，如果指定月内日期，可以在周内日期字段中插入"?"，表示周内日期值无关紧要。这里有个很蛋疼的设定，无关Quartz，而是Spring集成Quartz后，它自己加的一个约束，那就是：日期(1-31)和星期(SUN-SAT)两者，必须有一个是问号(?)，系统在启动的时候，Spring会检查表达式，如果不符合它的规则，就会抛异常。所以在使用的时候这个地方一定要注意，而这个在Linux上执行Cron是没有这个限制的。 -->
+	<!-- 字母L字符是last的缩写。放在月内日期字段中，表示安排在当月最后一天执行。在周内日期字段中，如果"L"单独存在,就等于"7"，否则代表当月内周内日期的最后一个实例。所以"0L"表示安排在当月的最后一个星期日执行。 -->
+	<!-- 字母(W)字符把执行安排在最靠近指定值的工作日。把"1W"放在月内日期字段中，表示把执行安排在当月的第一个工作日内。 -->
+	<!-- 井号(#)字符为给定月份指定具体的工作日实例。把"MON#2"放在周内日期字段中，表示把任务安排在当月的第二个星期一。 -->
+	<!-- 星号(*)字符是通配字符,表示该字段可以接受任何可能的值、表达式例子。 -->
+	<!-- 例子： -->
+	<!-- "0 0 08 * * ?" 每天上午8点触发 -->
+	<!-- "0 15 10 ? * *" 每天上午10:15触发 -->
+	<!-- "0 15 10 * * ?" 每天上午10:15触发 -->
+	<!-- "0 15 10 * * ? *" 每天上午10:15触发 -->
+	<!-- "0 15 10 * * ? 2005" 2005年的每天上午10:15触发 -->
+	<!-- "0 * 14 * * ?" 在每天下午2点到下午2:59期间的每1分钟触发 -->
+	<!-- "0 0/5 14 * * ?" 在每天下午2点到下午2:55期间的每5分钟触发 -->
+	<!-- "0 0/5 14,18 * * ?" 在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发 -->
+	<!-- "0 0-5 14 * * ?" 在每天下午2点到下午2:05期间的每1分钟触发 -->
+	<!-- "0 10,44 14 ? 3 WED" 每年三月的星期三的下午2:10和2:44触发 -->
+	<!-- "0 15 10 ? * MON-FRI" 周一至周五的上午10:15触发 -->
+	<!-- "0 15 10 15 * ?" 每月15日上午10:15触发 -->
+	<!-- "0 15 10 L * ?" 每月最后一日的上午10:15触发 -->
+	<!-- "0 15 10 ? * 6L" 每月的最后一个星期五上午10:15触发 -->
+	<!-- "0 15 10 ? * 6L 2009-2019" 2009年至2019年的每月的最后一个星期五上午10:15触发 -->
+	<!-- "0 15 10 ? * 6#3" 每月的第三个星期五上午10:15触发 -->
+
+
+
+
+	
+</beans>

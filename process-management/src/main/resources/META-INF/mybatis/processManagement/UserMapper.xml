@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meyacom.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="com.meyacom.domain.User">
+		<id column="userId" jdbcType="INTEGER" property="userId" />
+		<result column="userName" jdbcType="VARCHAR" property="userName" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="salt" jdbcType="VARCHAR" property="salt" />
+		<result column="orgId" jdbcType="INTEGER" property="orgId" />
+		<result column="telephone" jdbcType="VARCHAR" property="telephone" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="entryTime" jdbcType="TIMESTAMP" property="entryTime" />
+		<result column="departmentId" jdbcType="VARCHAR" property="departmentId" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+
+		<result column="lastLoginIp" jdbcType="VARCHAR" property="lastLoginIp" />
+		<result column="userAgent" jdbcType="VARCHAR" property="userAgent" />
+		<result column="userImage" jdbcType="VARCHAR" property="userImage" />
+
+		<!-- 一对多的关系 -->
+		<!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
+		<collection property="role" ofType="com.meyacom.domain.Role">
+			<id column="roleId" jdbcType="INTEGER" property="roleId" />
+			<result column="roleCode" jdbcType="INTEGER" property="roleCode" />
+			<result column="roleName" jdbcType="VARCHAR" property="roleName" />
+			<result column="roleDescription" jdbcType="VARCHAR" property="roleDescription" />
+			<result column="orgId" jdbcType="INTEGER" property="orgId" />
+			<result column="departmentId" jdbcType="INTEGER" property="departmentId" />
+			<result column="departmentName" jdbcType="VARCHAR" property="departmentName" />
+			<result column="status" jdbcType="INTEGER" property="status" />
+		</collection>
+	</resultMap>
+
+	<select id="findByUsername" resultMap="BaseResultMap">
+		SELECT
+		U.*,R.*
+		FROM
+		T_USER U,
+		T_USER_ROLE UR,
+		T_ROLE R
+		WHERE
+		U.USERID = UR.USERID
+		AND UR.ROLEID =
+		R.ROLEID
+		AND U.`STATUS`=1
+		AND R.`STATUS`=1
+		AND
+		U.USERNAME=#{userName,jdbcType=VARCHAR}
+	</select>
+
+	<update id="updateUserLoginIpAndUserAgent" >
+		UPDATE T_USER 
+		SET
+		lastLoginIp=#{loginIp,jdbcType=VARCHAR},
+		userAgent=#{userAgent,jdbcType=VARCHAR}
+		WHERE
+		username=#{userName,jdbcType=VARCHAR}
+	</update>
+</mapper>

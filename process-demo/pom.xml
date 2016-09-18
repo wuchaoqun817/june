@@ -1,0 +1,690 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.june.pmsys</groupId>
+	<artifactId>process-demo</artifactId>
+	<!-- <packaging>war</packaging> -->
+	<!-- 主模块的packaging 必须为pom -->
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>process-demo Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<description>主模板</description>
+	<!-- 子模块 -->
+	<modules>
+		<module>../process-webapp</module>
+		<module>../process-common</module>
+		<module>../process-management</module>
+		<module>../process-shiro</module>
+		<module>../process-service</module>
+	</modules>
+
+	<repositories>
+		<repository>
+			<id>springsource-repo</id>
+			<name>SpringSource Repository</name>
+			<url>http://repo.springsource.org/release</url>
+		</repository>
+	</repositories>
+
+	<properties>
+		<!--指定Maven用什么编码来读取源码及文档 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!--指定Maven用什么编码来呈现站点的HTML文件 -->
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- spring版本号 -->
+		<spring.version>4.0.2.RELEASE</spring.version>
+		<Mybatis.version>3.2.8</Mybatis.version>
+		<Mybatis-Spring.version>1.2.2</Mybatis-Spring.version>
+		<aspectjweaver.version>1.8.6</aspectjweaver.version>
+		<mysql-connector-java>5.1.29</mysql-connector-java>
+		<junit.version>4.11</junit.version>
+		<commons-dbcp.version>1.4</commons-dbcp.version>
+		<jstl.version>1.2</jstl.version>
+		<log4j.version>1.2.17</log4j.version>
+		<slf4j-log4j12>1.7.5</slf4j-log4j12>
+		<servlet-api.version>2.5</servlet-api.version>
+		<jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
+		<jackson-core-asl.version>1.9.13</jackson-core-asl.version>
+		<jackson.version>2.6.0</jackson.version>
+		<commons-fileupload.version>1.3</commons-fileupload.version>
+		<ehcache.version>2.8.1</ehcache.version>
+		<!-- security -->
+		<spring.security.version>3.1.3.RELEASE</spring.security.version>
+		<!-- tiles -->
+		<tiles.version>3.0.5</tiles.version>
+		<!-- 二维码生成 -->
+		<zxing.version>2.2</zxing.version>
+		<shiro.version>1.2.3</shiro.version>
+		<!-- PageHelper分页 -->
+		<pagehelper.version>4.0.0</pagehelper.version>
+		<!-- javaemail -->
+		<javaemail.version>1.4.5</javaemail.version>
+		<mail.version>1.4.1</mail.version>
+		<commons-email.version>1.4</commons-email.version>
+		<!-- logback -->
+		<logback.version>1.0.0</logback.version>
+		<logback-ext-spring.version>0.1.1</logback-ext-spring.version>
+		<!-- oracle ojdbc -->
+		<ojdbc.version>1.6</ojdbc.version>
+		<!-- 阿里巴巴开源数据源 -->
+		<druid.version>1.0.15</druid.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- spring核心包 -->
+			<!-- springframe start -->
+			<!-- spring核心包 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-oxm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- springframe end -->
+
+			<!-- mybatis核心包 -->
+
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${Mybatis.version}</version>
+			</dependency>
+
+			<!-- AOP -->
+			<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>${aspectjweaver.version}</version>
+			</dependency>
+
+			<!-- mybatis/spring包 -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>${Mybatis-Spring.version}</version>
+			</dependency>
+			<!-- mysql驱动包 -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql-connector-java}</version>
+			</dependency>
+			<!-- oracle jdbc -->
+			<dependency>
+				<groupId>com.oracle</groupId>
+				<artifactId>ojdbc</artifactId>
+				<version>${ojdbc.version}</version>
+			</dependency>
+			<!-- junit测试包 -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-dbcp</groupId>
+				<artifactId>commons-dbcp</artifactId>
+				<version>${commons-dbcp.version}</version>
+			</dependency>
+
+
+
+
+			<!-- 日志文件管理包 -->
+			<!-- log start -->
+			<!-- <dependency> -->
+			<!-- <groupId>log4j</groupId> -->
+			<!-- <artifactId>log4j</artifactId> -->
+			<!-- <version>${log4j.version}</version> -->
+			<!-- </dependency> -->
+
+			<!-- <dependency> -->
+			<!-- <groupId>org.slf4j</groupId> -->
+			<!-- <artifactId>slf4j-log4j12</artifactId> -->
+			<!-- <version>${slf4j-log4j12}</version> -->
+			<!-- </dependency> -->
+			<!-- log end -->
+
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>jstl</artifactId>
+				<version>${jstl.version}</version>
+			</dependency>
+
+			<!-- 在一个maven项目中，如果存在编译�?��而发布不�?��的jar包，可以用scope标签，�?设为provided -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${servlet-api.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-core-asl</artifactId>
+				<version>${jackson-core-asl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>${jackson-mapper-asl.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${commons-fileupload.version}</version>
+			</dependency>
+
+
+			<!-- tiles -->
+			<dependency>
+				<groupId>org.apache.tiles</groupId>
+				<artifactId>tiles-extras</artifactId>
+				<version>${tiles.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tiles</groupId>
+				<artifactId>tiles-servlet</artifactId>
+				<version>${tiles.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tiles</groupId>
+				<artifactId>tiles-jsp</artifactId>
+				<version>${tiles.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tiles</groupId>
+				<artifactId>tiles-core</artifactId>
+				<version>${tiles.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tiles</groupId>
+				<artifactId>tiles-api</artifactId>
+				<version>${tiles.version}</version>
+			</dependency>
+
+			<!-- security -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-core</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-taglibs</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-acl</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+
+			<!-- 二维码 -->
+			<dependency>
+				<groupId>com.google.zxing</groupId>
+				<artifactId>core</artifactId>
+				<version>${zxing.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.zxing</groupId>
+				<artifactId>javase</artifactId>
+				<version>${zxing.version}</version>
+			</dependency>
+
+
+			<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache-core -->
+
+			<!-- ehcache 2.x核心jar -->
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>${ehcache.version}</version>
+			</dependency>
+
+			<!-- cas -->
+			<!-- <dependency> -->
+			<!-- <groupId>org.springframework.security</groupId> -->
+			<!-- <artifactId>spring-security-cas</artifactId> -->
+			<!-- <version>3.1.3.RELEASE</version> -->
+			<!-- </dependency -->
+
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-core</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-web</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-spring</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-ehcache</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-aspectj</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-quartz</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+
+			<!-- 分页插件 -->
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper</artifactId>
+				<version>${pagehelper.version}</version>
+			</dependency>
+
+			<!-- javamail 发送邮件 -->
+			<dependency>
+				<groupId>javamail</groupId>
+				<artifactId>javamail</artifactId>
+				<version>${javaemail.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>${mail.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-email</artifactId>
+				<version>${commons-email.version}</version>
+			</dependency>
+
+			<!-- logback -->
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.logback-extensions</groupId>
+				<artifactId>logback-ext-spring</artifactId>
+				<version>${logback-ext-spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.7</version>
+			</dependency>
+
+			<!-- 阿里巴巴开源数据源 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.26</version>
+			</dependency>
+
+			<dependency>
+				<groupId>backport-util-concurrent</groupId>
+				<artifactId>backport-util-concurrent</artifactId>
+				<version>3.1</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>process-demo</finalName>
+		<pluginManagement>
+			<plugins>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.3.2</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.5</version>
+					<configuration>
+						<overwrite>true</overwrite>
+					</configuration>
+				</plugin>
+
+				<!-- 指定编译环境为jdk1.6 utf-8 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<goals>
+						<goal>manifest</goal>
+					</goals>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.9</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.4</version>
+					<configuration>
+						<includes>
+							<include>WEB-INF/**/*</include>
+							<include>META-INF/**/*</include>
+							<include>resource/**/*</include>
+							<include>**/*.class</include>
+							<include>**/*.properties</include>
+						</includes>
+						<archive>
+							<addMavenDescriptor>true</addMavenDescriptor>
+							<compress>true</compress>
+							<forced>true</forced>
+							<index>true</index>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							</manifest>
+							<manifestEntries>
+								<Snaps-StaticResourceDevPath>${snapsStaticResourceDevPath}</Snaps-StaticResourceDevPath>
+							</manifestEntries>
+						</archive>
+						<useDefaultManifestFile>true</useDefaultManifestFile>
+						<defaultManifestFile>${basedir}/src/main/resources/META-INF/MANIFEST.MF</defaultManifestFile>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.1.2</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>copy</id>
+							<phase>package</phase>
+							<goals>
+								<goal>copy-dependencies</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${project.build.outputDirectory}/WEB-INF/lib/</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.mybatis.generator</groupId>
+					<artifactId>mybatis-generator-maven-plugin</artifactId>
+					<version>1.3.1</version>
+				</plugin>
+
+				<!-- 指定jetty的版本及启动端口 -->
+				<plugin>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>maven-jetty-plugin</artifactId>
+					<version>6.1.26</version>
+					<!-- <version>6.1.26</version> -->
+					<configuration>
+						<!-- 在很短的时间间隔内在扫描web应用检查是否有改变，如果发觉有任何改变则自动热部署。 默认为0，表示禁用热部署检查。任何一个大于0的数字都将表示启用。 -->
+						<scanIntervalSeconds>10</scanIntervalSeconds>
+						<!-- <webDefaultXml>src/main/resources/jetty-webdefault.xml</webDefaultXml> -->
+
+						<!-- <webApp> 设置发布 <contextPath>/</contextPath> 设置web.xml所在位置 <descriptor>${basedir}/WebRoot/WEB-INF/web.xml</descriptor> 
+							设置默认webdefault.xml,这个主要是为了禁止jetty启动之后,锁定文件.需要修改webdefault.xml里面的useFileMappedBuffer属性为false 
+							<defaultsDescriptor>src/main/resources/jetty-webdefault.xml</defaultsDescriptor> 
+							</webApp> -->
+
+						<connectors>
+							<!-- 从7.0.0.1beta3开始SelectChannelConnector就改到了org.eclipse.jetty.server.nio.SelectChannelConnector -->
+							<!-- <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector"> 
+								改为 <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector"> -->
+							<!-- <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector"> -->
+							<!-- 从7.0.0.1beta3以下使用这个 -->
+							<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+								<port>9999</port>
+								<maxIdleTime>60000</maxIdleTime>
+							</connector>
+						</connectors>
+						<requestLog implementation="org.mortbay.jetty.NCSARequestLog">
+							<filename>target/yyyy_mm_dd.request.log</filename>
+							<retainDays>90</retainDays>
+							<append>true</append>
+							<extended>false</extended>
+							<logTimeZone>GMT</logTimeZone>
+						</requestLog>
+
+					</configuration>
+				</plugin>
+
+
+				<!-- 合并多个war -->
+				<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
+					<version>2.6</version> <configuration> 默认会变成在target/war/work 导致被打包进war文件,指定后为target/work 
+					<workDirectory>${project.build.directory}</workDirectory> packagingExcludes 
+					打包的时候不包括哪些文件 <packagingExcludes>WEB-INF/*</packagingExcludes> <overlays> 
+					<overlay> <groupId>BPMProductization</groupId> <artifactId>process</artifactId> 
+					</overlay> </overlays> </configuration> </plugin> -->
+
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+				<reportSets>
+					<reportSet><!-- by default, id = "default" -->
+						<reports><!-- select non-aggregate reports -->
+							<report>javadoc</report>
+							<report>test-javadoc</report>
+						</reports>
+					</reportSet>
+					<reportSet>
+						<id>aggregate</id><!-- aggregate reportSet, for pom with modules -->
+						<inherited>false</inherited><!-- don't run aggregate in child modules -->
+						<reports>
+							<report>aggregate</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.10</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<targetJdk>1.6</targetJdk>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<xmlOutput>true</xmlOutput>
+					<effort>Max</effort>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.12.2</version>
+				<configuration>
+					<showSuccess>false</showSuccess>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<profiles>
+		<!-- 开发环境 -->
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<!-- 以下配置properties中用到一些变量，如数据库连接参数、日志打印等 -->
+			<properties>
+				<log.moduleName>process-demo</log.moduleName>
+				<log.base>logs</log.base>
+				<log.other.level>DEBUG</log.other.level>
+				<log.root.level>DEBUG</log.root.level>
+				<log.stdout.ref><![CDATA[<appender-ref ref="stdout" />]]></log.stdout.ref>
+			</properties>
+		</profile>
+	</profiles>
+
+</project>
