@@ -16,7 +16,6 @@ target
 .classpath
 .settings
 .metadata
-*.log
 */logs/*
 
 # ignore maven files
