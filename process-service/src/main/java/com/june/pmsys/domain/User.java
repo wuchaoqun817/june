@@ -2,7 +2,12 @@ package com.june.pmsys.domain;
 
 import java.util.Date;
 import java.util.Set;
-public class User {
+public class User extends BaseEntity{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Integer userId;
 
 	private String userName;

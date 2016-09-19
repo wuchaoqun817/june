@@ -32,6 +32,23 @@
 		</collection>
 	</resultMap>
 
+	<sql id="userColumns">
+		userId,
+		userName,
+		password,
+		salt,
+		orgId,
+		telephone,
+		mobile,
+		email,
+		entryTime,
+		departmentId,
+		status,
+		lastLoginIp,
+		userAgent,
+		userImage
+	</sql>	
+
 	<select id="findByUsername" resultMap="BaseResultMap">
 		SELECT
 		U.*,R.*
@@ -57,4 +74,11 @@
 		WHERE
 		username=#{userName,jdbcType=VARCHAR}
 	</update>
+	
+	<select id="findByPage" parameterType="com.june.pmsys.domain.User" resultType="com.june.pmsys.domain.User">
+		select 
+		<include refid="userColumns"></include>
+		from t_user
+		where status=1
+	</select>
 </mapper>

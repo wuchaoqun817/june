@@ -1,5 +1,7 @@
 package com.june.pmsys.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -31,6 +33,13 @@ public class UserServiceImpl implements UserService{
 
 	public void setUserDao(UserDao UserDao) {
 		this.userDao = UserDao;
+	}
+
+
+	@Override
+	public List<User> getUsers(User user) {
+		// TODO Auto-generated method stub
+		return userDao.findByPage(user);
 	}
 
 

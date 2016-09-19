@@ -1,10 +1,16 @@
 package com.june.pmsys.domain;
 
 
+import java.io.Serializable;
 import java.util.Set;
 
-public class Role {
-    private Integer roleId;
+public class Role implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer roleId;
 
     private Integer roleCode;
 

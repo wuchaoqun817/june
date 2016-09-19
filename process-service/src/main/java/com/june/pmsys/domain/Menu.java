@@ -1,11 +1,16 @@
 package com.june.pmsys.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 菜单表
  * */
-public class Menu {
+public class Menu implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String menuName;
 	private String menuNameDesc;

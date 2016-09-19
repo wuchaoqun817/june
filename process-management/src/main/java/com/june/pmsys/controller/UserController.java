@@ -1,5 +1,6 @@
 package com.june.pmsys.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -61,6 +62,16 @@ public class UserController {
 		return user;
 	}
 	
+	@RequestMapping("/getUsers")
+	@ResponseBody
+	public List<User> getUsers(){
+		User user=new User();
+		user.setPagebegin(1);
+		user.setPagesize(1);
+		List<User> users= userService.getUsers(user);
+		System.err.println(users);
+		return users;
+	}
 	
 	
 	/**
@@ -72,5 +83,5 @@ public class UserController {
 		System.out.println("用户【user】的盐值salt为:" + map.get("salt"));
 		System.out.println("用户【user】的盐值newPassword为:" + map.get("newPassword"));
 	}
-
+	
 }
