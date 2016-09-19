@@ -1,4 +1,4 @@
-package com.meyacom.shiro;
+package com.june.pmsys.shiro;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,11 +21,11 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.meyacom.domain.Role;
-import com.meyacom.domain.User;
-import com.meyacom.service.ResourcesService;
-import com.meyacom.service.RoleService;
-import com.meyacom.service.UserService;
+import com.june.pmsys.domain.Role;
+import com.june.pmsys.domain.User;
+import com.june.pmsys.service.ResourcesService;
+import com.june.pmsys.service.RoleService;
+import com.june.pmsys.service.UserService;
 
 /**
  * Title: UserRealm
@@ -70,14 +70,14 @@ public class UserRealm extends AuthorizingRealm {
 		// 简单默认一个用户与角色，实际项目应User user = userService.getByAccount(name);
 
 		if (null != currentUserName) {
-			Set<com.meyacom.domain.Resources> resources = resourcesService
+			Set<com.june.pmsys.domain.Resources> resources = resourcesService
 					.selectResourceByUsername(currentUserName);
-			Set<com.meyacom.domain.Role> roles = roleService
+			Set<com.june.pmsys.domain.Role> roles = roleService
 					.selectRoleByUsername(currentUserName);
 			for (Role role : roles) {
 				roleName.add(String.valueOf(role.getRoleName()));
 			}
-			for (com.meyacom.domain.Resources resource : resources) {
+			for (com.june.pmsys.domain.Resources resource : resources) {
 				// 使用url进行匹配
 				permissions.add(resource.getResourcesUrl());
 				// permissions.add(resource.getResourcespermission());

@@ -1,4 +1,4 @@
-package com.meyacom.shiro;
+package com.june.pmsys.shiro;
 
 import java.io.IOException;
 

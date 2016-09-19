@@ -1,11 +1,11 @@
-package com.meyacom.shiro;
+package com.june.pmsys.shiro;
 
 
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.meyacom.domain.User;
+import com.june.pmsys.domain.User;
 
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;

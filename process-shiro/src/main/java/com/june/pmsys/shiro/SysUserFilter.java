@@ -1,4 +1,4 @@
-package com.meyacom.shiro;
+package com.june.pmsys.shiro;
 
 
 
@@ -9,7 +9,7 @@ import javax.servlet.ServletResponse;
 import org.apache.shiro.web.filter.PathMatchingFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.meyacom.service.UserService;
+import com.june.pmsys.service.UserService;
 
 
 
