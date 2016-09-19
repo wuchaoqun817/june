@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.june.pmsys.domain.Role;
 
-public interface RoleMapper {
+public interface RoleDao {
 
 	List<Integer> findRoleIdsByUserId(@Param("userId") int userId);
 

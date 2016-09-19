@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.june.pmsys.dao.RoleMapper">
+<mapper namespace="com.june.pmsys.dao.RoleDao">
 	<resultMap id="BaseResultMap" type="com.june.pmsys.domain.Role">
 		<id column="roleId" jdbcType="INTEGER" property="roleId" />
 		<result column="roleCode" jdbcType="INTEGER" property="roleCode" />

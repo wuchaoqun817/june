@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.june.pmsys.domain.User;
 
-public interface UserMapper {
+public interface UserDao {
     
 
 	User findByUsername(@Param("userName")String userName);

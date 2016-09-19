@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.june.pmsys.domain.Resources;
 
-public interface ResourcesMapper {
+public interface ResourcesDao {
 	
 	Set<Resources> selectResourceByUsername(@Param("currentUserName")	String currentUserName);
 

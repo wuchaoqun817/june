@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.june.pmsys.dao.UserMapper;
+import com.june.pmsys.dao.UserDao;
 import com.june.pmsys.domain.User;
 import com.june.pmsys.service.UserService;
 
@@ -12,25 +12,25 @@ import com.june.pmsys.service.UserService;
 public class UserServiceImpl implements UserService{
 
 	@Resource
-	private UserMapper userMapper;
+	private UserDao userDao;
 	
 	@Override
 	public User findByUsername(String userName) {
-		return (User)userMapper.findByUsername(userName);
+		return (User)userDao.findByUsername(userName);
 	}
 	
 	
 	public Integer updateUserLoginIpAndUserAgent(String loginIp, String userAgent,String userName) {
 		// TODO Auto-generated method stub
-		return userMapper.updateUserLoginIpAndUserAgent(loginIp,  userAgent,userName);
+		return userDao.updateUserLoginIpAndUserAgent(loginIp,  userAgent,userName);
 	}
 
-	public UserMapper getUserMapper() {
-		return userMapper;
+	public UserDao getUserDao() {
+		return userDao;
 	}
 
-	public void setUserMapper(UserMapper userMapper) {
-		this.userMapper = userMapper;
+	public void setUserDao(UserDao UserDao) {
+		this.userDao = UserDao;
 	}
 
 

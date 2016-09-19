@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.june.pmsys.dao.ResourcesMapper;
+import com.june.pmsys.dao.ResourcesDao;
 import com.june.pmsys.domain.Resources;
 import com.june.pmsys.service.ResourcesService;
 
@@ -15,22 +15,22 @@ import com.june.pmsys.service.ResourcesService;
 public class ResourcesServiceImpl implements ResourcesService{
 	
 	@Resource
-	private ResourcesMapper resourcesMapper;
+	private ResourcesDao resourcesDao;
 
 
 	@Override
 	public Set<Resources> selectResourceByUsername(String currentUserName) {
-		return (Set<Resources> )resourcesMapper.selectResourceByUsername(currentUserName);
+		return (Set<Resources> )resourcesDao.selectResourceByUsername(currentUserName);
 	}
 	
 
 	
-	public ResourcesMapper getResourcesMapper() {
-		return resourcesMapper;
+	public ResourcesDao getResourcesDao() {
+		return resourcesDao;
 	}
 
-	public void setResourcesMapper(ResourcesMapper resourcesMapper) {
-		this.resourcesMapper = resourcesMapper;
+	public void setResourcesDao(ResourcesDao ResourcesDao) {
+		this.resourcesDao = ResourcesDao;
 	}
 
 	

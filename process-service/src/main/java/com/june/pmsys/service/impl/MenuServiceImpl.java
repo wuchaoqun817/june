@@ -6,26 +6,26 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.june.pmsys.dao.MenuMapper;
+import com.june.pmsys.dao.MenuDao;
 import com.june.pmsys.domain.Menu;
 import com.june.pmsys.service.MenuService;
 
 @Service
 public class MenuServiceImpl implements MenuService{
 	@Resource
-	private MenuMapper menuMapper;
+	private MenuDao menuDao;
 
-	public MenuMapper getMenuMapper() {
-		return menuMapper;
+	public MenuDao getMenuDao() {
+		return menuDao;
 	}
 
-	public void setMenuMapper(MenuMapper menuMapper) {
-		this.menuMapper = menuMapper;
+	public void setMenuDao(MenuDao MenuDao) {
+		this.menuDao = MenuDao;
 	}
 
 	@Override
 	public List<Menu> queryMenuByParentId(String userName, int menuParentId) {
-		return (List<Menu>)menuMapper.queryMenuByParentId(userName,menuParentId);
+		return (List<Menu>)menuDao.queryMenuByParentId(userName,menuParentId);
 	}
 
 	
