@@ -17,6 +17,7 @@ target
 .settings
 .metadata
 *.log
+*/logs/*
 
 # ignore maven files
 */src/test/*
