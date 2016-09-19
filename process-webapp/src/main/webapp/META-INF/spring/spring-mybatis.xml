@@ -19,9 +19,9 @@
 	<!-- 开启注解 -->
 	<context:annotation-config />
 	<!-- 自动扫描 -->
-	<!-- <context:component-scan base-package="com.meyacom" /> -->
+	<!-- <context:component-scan base-package="com.june.pmsys" /> -->
 	<!-- 注解扫描的目录:使用 annotation 排除@Controller注解 -->
-	<context:component-scan base-package="com.meyacom">
+	<context:component-scan base-package="com.june.pmsys">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
@@ -101,7 +101,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<!-- 自动扫描mapping.xml文件 -->
-		<!-- <property name="mapperLocations" value="classpath:com/meyacom/mapping/*.xml"></property> -->
+		<!-- <property name="mapperLocations" value="classpath:com/june.pmsys/mapping/*.xml"></property> -->
 		<property name="mapperLocations" value="classpath*:META-INF/mybatis/**/*.xml"></property>
 
 		<!-- 引入pageHelper分页配置文件 -->
@@ -110,7 +110,7 @@
 
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.meyacom.dao" />
+		<property name="basePackage" value="com.june.pmsys.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
 
@@ -122,7 +122,7 @@
 		scope="prototype">
 		<property name="patterns">
 			<list>
-				<value>com.meyacom.service.*</value>
+				<value>com.june.pmsys.service.*</value>
 			</list>
 		</property>
 	</bean>
@@ -181,7 +181,7 @@
 	<!-- 配置AOP切面 -->
 	<!-- <aop:config> -->
 	<!-- <aop:pointcut id="transactionPointcut" -->
-	<!-- expression="execution(* com.meyacom..service.*.*(..))" /> -->
+	<!-- expression="execution(* com.june.pmsys..service.*.*(..))" /> -->
 	<!-- <aop:advisor pointcut-ref="transactionPointcut" -->
 	<!-- advice-ref="transactionAdvice" /> -->
 	<!-- </aop:config> -->

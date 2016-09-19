@@ -18,8 +18,8 @@
 	<!-- 默认的注解映射的支持 完成请求和注解POJO的映射 -->
 	<mvc:annotation-driven />
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
-	<!-- <context:component-scan base-package="com.meyacom.controller" /> -->
-	<context:component-scan base-package="com.meyacom.controller"
+	<!-- <context:component-scan base-package="com.june.pmsys.controller" /> -->
+	<context:component-scan base-package="com.june.pmsys.controller"
 		use-default-filters="false">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />

@@ -22,12 +22,12 @@
 	</bean>
 
 	<!-- 缓存管理器 -->
-	<bean id="cacheManager" class="com.meyacom.shiro.SpringCacheManagerWrapper">
+	<bean id="cacheManager" class="com.june.pmsys.shiro.SpringCacheManagerWrapper">
 		<property name="cacheManager" ref="springCacheManager" />
 	</bean>
 
 	<!-- 凭证匹配器 -->
-	<bean id="credentialsMatcher" class="com.meyacom.shiro.RetryLimitHashedCredentialsMatcher">
+	<bean id="credentialsMatcher" class="com.june.pmsys.shiro.RetryLimitHashedCredentialsMatcher">
 		<constructor-arg ref="cacheManager" />
 		<property name="hashAlgorithmName" value="md5" />
 		<property name="hashIterations" value="2" />
@@ -35,7 +35,7 @@
 	</bean>
 
 	<!-- Realm实现 -->
-	<bean id="userRealm" class="com.meyacom.shiro.UserRealm">
+	<bean id="userRealm" class="com.june.pmsys.shiro.UserRealm">
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
 		<property name="cachingEnabled" value="false" />
 <!-- 		<property name="authenticationCachingEnabled" value="true"/> -->
@@ -100,8 +100,8 @@
 	</bean>
 
 	<!-- 暂时没搞清楚作用,所以取消 -->
-	<!-- <bean id="sysUserFilter" class="com.meyacom.shiro.SysUserFilter" /> -->
-	<bean id="URLPermissionsFilter" class="com.meyacom.shiro.URLPermissionsFilter" />
+	<!-- <bean id="sysUserFilter" class="com.june.pmsys.shiro.SysUserFilter" /> -->
+	<bean id="URLPermissionsFilter" class="com.june.pmsys.shiro.URLPermissionsFilter" />
 
 
 	<!-- 基于Form表单的身份验证过滤器 -->
@@ -113,7 +113,7 @@
 	</bean>
 
 	<!-- 最大会话次数，二者使用同一个账户登录，后者会把前者T除 -->
-	<bean id="kickoutSessionControlFilter" class="com.meyacom.shiro.KickoutSessionControlFilter">
+	<bean id="kickoutSessionControlFilter" class="com.june.pmsys.shiro.KickoutSessionControlFilter">
 		<property name="cacheManager" ref="cacheManager" />
 		<property name="sessionManager" ref="sessionManager" />
 		<property name="kickoutAfter" value="false" />
