@@ -1,9 +1,9 @@
-package com.meyacom.service;
+package com.june.pmsys.service;
 
 import java.util.List;
 import java.util.Set;
 
-import com.meyacom.domain.Role;
+import com.june.pmsys.domain.Role;
 
 public interface RoleService {
 

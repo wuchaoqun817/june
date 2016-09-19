@@ -1,11 +1,11 @@
-package com.meyacom.dao;
+package com.june.pmsys.dao;
 
 import java.util.List;
 import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.meyacom.domain.Resources;
+import com.june.pmsys.domain.Resources;
 
 public interface ResourcesMapper {
 	

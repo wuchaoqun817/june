@@ -1,4 +1,4 @@
-package com.meyacom.service.impl;
+package com.june.pmsys.service.impl;
 
 import java.util.List;
 import java.util.Set;
@@ -7,9 +7,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.meyacom.dao.RoleMapper;
-import com.meyacom.domain.Role;
-import com.meyacom.service.RoleService;
+import com.june.pmsys.dao.RoleMapper;
+import com.june.pmsys.domain.Role;
+import com.june.pmsys.service.RoleService;
 
 @Service
 public class RoleServiceImpl implements RoleService{

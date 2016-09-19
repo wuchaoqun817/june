@@ -1,10 +1,10 @@
-package com.meyacom.dao;
+package com.june.pmsys.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.meyacom.domain.Menu;
+import com.june.pmsys.domain.Menu;
 
 public interface MenuMapper {
 

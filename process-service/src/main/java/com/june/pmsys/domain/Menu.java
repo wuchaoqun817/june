@@ -1,4 +1,4 @@
-package com.meyacom.domain;
+package com.june.pmsys.domain;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
-package com.meyacom.service;
+package com.june.pmsys.service;
 
 import java.util.List;
 import java.util.Set;
 
-import com.meyacom.domain.Resources;
+import com.june.pmsys.domain.Resources;
 
 public interface ResourcesService {
 

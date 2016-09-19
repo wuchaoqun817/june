@@ -1,4 +1,4 @@
-package com.meyacom.domain;
+package com.june.pmsys.domain;
 
 public class Resources {
 	private Integer resourcesId;

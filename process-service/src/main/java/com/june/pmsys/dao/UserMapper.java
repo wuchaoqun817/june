@@ -1,8 +1,8 @@
-package com.meyacom.dao;
+package com.june.pmsys.dao;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.meyacom.domain.User;
+import com.june.pmsys.domain.User;
 
 public interface UserMapper {
     

@@ -1,4 +1,4 @@
-package com.meyacom.service.impl;
+package com.june.pmsys.service.impl;
 
 import java.util.Set;
 
@@ -6,9 +6,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.meyacom.dao.ResourcesMapper;
-import com.meyacom.domain.Resources;
-import com.meyacom.service.ResourcesService;
+import com.june.pmsys.dao.ResourcesMapper;
+import com.june.pmsys.domain.Resources;
+import com.june.pmsys.service.ResourcesService;
 
 
 @Service

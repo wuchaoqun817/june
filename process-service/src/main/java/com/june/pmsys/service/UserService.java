@@ -1,6 +1,6 @@
-package com.meyacom.service;
+package com.june.pmsys.service;
 
-import com.meyacom.domain.User;
+import com.june.pmsys.domain.User;
 
 public interface UserService {
 

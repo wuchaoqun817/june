@@ -1,4 +1,4 @@
-package com.meyacom.service.impl;
+package com.june.pmsys.service.impl;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.meyacom.dao.MenuMapper;
-import com.meyacom.domain.Menu;
-import com.meyacom.service.MenuService;
+import com.june.pmsys.dao.MenuMapper;
+import com.june.pmsys.domain.Menu;
+import com.june.pmsys.service.MenuService;
 
 @Service
 public class MenuServiceImpl implements MenuService{
