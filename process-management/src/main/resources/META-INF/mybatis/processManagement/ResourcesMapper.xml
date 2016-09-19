@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.meyacom.dao.ResourcesMapper">
-	<resultMap id="BaseResultMap" type="com.meyacom.domain.Resources">
+<mapper namespace="com.june.pmsys.dao.ResourcesMapper">
+	<resultMap id="BaseResultMap" type="com.june.pmsys.domain.Resources">
 		<id column="resourcesId" jdbcType="INTEGER" property="resourcesId" />
 		<result column="resourcesName" jdbcType="VARCHAR" property="resourcesName" />
 		<result column="resourcesType" jdbcType="VARCHAR" property="resourcesType" />

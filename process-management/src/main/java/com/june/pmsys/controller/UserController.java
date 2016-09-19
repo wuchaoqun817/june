@@ -1,4 +1,4 @@
-package com.meyacom.controller;
+package com.june.pmsys.controller;
 
 import java.util.Map;
 
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.meyacom.domain.User;
-import com.meyacom.service.UserService;
-import com.meyacom.shiro.PasswordHelper;
+import com.june.pmsys.domain.User;
+import com.june.pmsys.service.UserService;
+import com.june.pmsys.shiro.PasswordHelper;
 
 /**
  * Title: UserController

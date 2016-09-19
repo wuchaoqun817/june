@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.meyacom.dao.UserMapper">
-	<resultMap id="BaseResultMap" type="com.meyacom.domain.User">
+<mapper namespace="com.june.pmsys.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="com.june.pmsys.domain.User">
 		<id column="userId" jdbcType="INTEGER" property="userId" />
 		<result column="userName" jdbcType="VARCHAR" property="userName" />
 		<result column="password" jdbcType="VARCHAR" property="password" />
@@ -20,7 +20,7 @@
 
 		<!-- 一对多的关系 -->
 		<!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
-		<collection property="role" ofType="com.meyacom.domain.Role">
+		<collection property="role" ofType="com.june.pmsys.domain.Role">
 			<id column="roleId" jdbcType="INTEGER" property="roleId" />
 			<result column="roleCode" jdbcType="INTEGER" property="roleCode" />
 			<result column="roleName" jdbcType="VARCHAR" property="roleName" />

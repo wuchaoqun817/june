@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.meyacom.dao.RoleMapper">
-	<resultMap id="BaseResultMap" type="com.meyacom.domain.Role">
+<mapper namespace="com.june.pmsys.dao.RoleMapper">
+	<resultMap id="BaseResultMap" type="com.june.pmsys.domain.Role">
 		<id column="roleId" jdbcType="INTEGER" property="roleId" />
 		<result column="roleCode" jdbcType="INTEGER" property="roleCode" />
 		<result column="roleName" jdbcType="VARCHAR" property="roleName" />

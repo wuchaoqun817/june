@@ -1,4 +1,4 @@
-package com.meyacom.controller;
+package com.june.pmsys.controller;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.meyacom.domain.Menu;
-import com.meyacom.domain.User;
-import com.meyacom.service.MenuService;
+import com.june.pmsys.domain.Menu;
+import com.june.pmsys.domain.User;
+import com.june.pmsys.service.MenuService;
 
 /**
  * Title: MenuController

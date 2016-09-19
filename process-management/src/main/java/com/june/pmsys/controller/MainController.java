@@ -1,4 +1,4 @@
-package com.meyacom.controller;
+package com.june.pmsys.controller;
 
 import java.util.Map;
 
@@ -21,9 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.meyacom.common.GetIpAddress;
-import com.meyacom.service.UserService;
-import com.meyacom.shiro.PasswordHelper;
+import com.june.pmsys.common.GetIpAddress;
+import com.june.pmsys.service.UserService;
+import com.june.pmsys.shiro.PasswordHelper;
 
 
 /**
