@@ -67,7 +67,7 @@ public class UserController {
 	public List<User> getUsers(){
 		User user=new User();
 		user.setPagebegin(1);
-		user.setPagesize(1);
+		user.setPagesize(2);
 		List<User> users= userService.getUsers(user);
 		System.err.println(users);
 		return users;

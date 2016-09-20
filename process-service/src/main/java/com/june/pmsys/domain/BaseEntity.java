@@ -7,8 +7,14 @@ public class BaseEntity implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int pagesize;
+	/**
+	 * 页大小
+	 */
+	private int pagesize; 
 	private int pageid;
+	/**
+	 * 开始页
+	 */
 	private int pagebegin;
 	private int count;
 	public int getPagesize() {
